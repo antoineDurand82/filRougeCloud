@@ -11,10 +11,10 @@ def read_root():
     return "test"
 
 
-@router.post("/predict", name="predict")
-async def predict(
+@router.post("/generate", name="generate")
+async def generate(
         features: Features,
         request: Request):
     model = request.app.state.ml_models["basic_prediction"]
-    prediction = model.predict(features.age, features.sex)
+    prediction = model.generate(features.prompt)
     return prediction
