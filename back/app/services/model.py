@@ -1,8 +1,12 @@
+import io
 import pickle
 import pandas as pd
 from diffusers import StableDiffusionPipeline
+from fastapi.responses import FileResponse
 import torch
 import asyncio
+import tempfile
+
 
 class Model:
 
@@ -14,6 +18,13 @@ class Model:
     def generate(self, prompt) -> dict:
         #  x_test = pd.DataFrame([[param1, param2]])
         # print(self.model)
-        image = self.model(prompt, num_inference_steps=2, height=256, width=256).images[0]
+        image = self.model(prompt).images[0]
         # prob = str(self.model.predict_proba(X)[0].tolist())  # send to list for return
-        return {'prediction': 10.0, "confidence": 15.0}
+        with tempfile.NamedTemporaryFile(suffix=".jpeg", delete=False) as tmp_file:
+            image.save(tmp_file.name, format="JPEG")
+            return FileResponse(tmp_file.name, media_type='image/jpeg')
+
+
+    
+
+

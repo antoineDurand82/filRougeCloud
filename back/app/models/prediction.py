@@ -1,5 +1,6 @@
+import PIL
 from pydantic import BaseModel
 
 
 class Prediction(BaseModel):
-    result: str
+    result: PIL.Image.Image
