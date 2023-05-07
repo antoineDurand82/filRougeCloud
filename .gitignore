@@ -1,3 +1,10 @@
 Ghibli-Diffusion/
-back/
+back/.env
 environnement.yml
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+.ipynb_checkpoints
